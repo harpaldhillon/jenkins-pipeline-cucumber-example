@@ -1,6 +1,22 @@
 pipeline{
 
-    agent any
+    agent {
+        kubernetes {
+            yaml '''
+apiVersion: v1
+kind: Pod
+spec:
+  containers:
+  - name: shell
+    image: mvn
+    command:
+    - sleep
+    args:
+    - infinity
+'''
+            defaultContainer 'mvn'
+        }
+    }
 
     stages {
 
@@ -8,10 +24,8 @@ pipeline{
 
             steps {
 
-                withMaven(maven: 'maven_3_5_0') {
                     sh 'mvn clean install'
 
-                }
 
             }
         }
@@ -19,10 +33,7 @@ pipeline{
 
             steps {
 
-                withMaven(maven: 'maven_3_5_0') {
                     sh 'mvn test'
-
-                }
 
             }
         }
