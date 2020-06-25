@@ -8,7 +8,7 @@ kind: Pod
 spec:
   containers:
   - name: shell
-    image: mvn
+    image: cdelepine/mvn3.3.9-jdk8-node10
     command:
     - sleep
     args:
